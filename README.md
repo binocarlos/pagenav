@@ -11,8 +11,6 @@ $ component install binocarlos/pagenav
 
 ## example
 
-Create a [pageturner](https://github.com/binocarlos/pageturner) book and pass it to pagenav for the navigation
-
 ```js
 var PageNav = require('pagenav')
 var nav = PageNav()
