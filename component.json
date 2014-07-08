@@ -1,0 +1,17 @@
+{
+  "name": "pagenav",
+  "description": "navigation toolbar for a pageturner book",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/emitter": "*"
+  },
+  "development": {},
+  "styles": [],
+  "files":[
+  ],
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
