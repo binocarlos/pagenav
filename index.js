@@ -1,3 +1,6 @@
+var Emitter = require('emitter')
+var classes = require('classes')
+
 module.exports = PageNav;
 
 function PageNav (book, opts) {
@@ -8,40 +11,54 @@ function PageNav (book, opts) {
   		opts[key] = defaults[key]
   	}
   })
-  this.book = book
-  this.options = opts
+  this._book = book
+  this._options = opts
   this.setupEvents()
 }
 
-PageHammer.prototype.setupEvents = function () {
-  var self = this;
-  this.book.on('render', function(elem){
-    self.setupHammer(target)
+Emitter(PageNav.prototype)
+
+PageNav.prototype.setupEvents = function () {
+  this._book.on('data', this.buildPages.bind(this))
+}
+
+PageNav.prototype.buildPages = function (pages) {
+  var self = this
+
+  this._pages = pages.map(function(page, i){
+    var page =  = document.createElement('div')
+    classes(page).add('pagenav-page')
+    page.innerHTML = i
+    page.addEventListener('click', self.clickPage.bind(self))
+    self.emit('page', page)
+  })
+  this.setPage(0)
+}
+
+PageNav.prototype.clickPage = function (index) {
+  this.emit('click', index)
+}
+
+PageNav.prototype.setPage = function (index) {
+  this._currentPage = index
+  this._pages.forEach(function(page, i){
+    classes(page).remove('pagenav-active')
+    if(i==index){
+      classes(page).add('pagenav-active')
+    }
   })
 }
 
-PageHammer.prototype.setupHammer = function (target) {
-  var self = this;
-
-  if(this.hammertime) return
-
-  this.hammertime = new Hammer(target, {
-    drag_min_distance:this.options.minDistance,
-    tap_max_distance:this.options.minDistance-1
-  })
-
-  var turned = false
-
-  hammertime.ondrag = function(ev){
-    if(turned){
-      return
-    }
-
-    turned = true
-    self.book.turnDirection(ev.direction)
+PageNav.prototype.render = function () {
+  if(this._element){
+    return this._element
   }
+  this._element = document.createElement('div')
+  classes(this._element).add('pagenav-bar')
+  return this._element
+}
 
-  hammertime.ondragend = function(ev){
-    turned = false
-  }
+PageNav.prototype.appendTo = function (target) {
+  if (typeof target === 'string') target = document.querySelector(target)
+  target.appendChild(this.render())
 }

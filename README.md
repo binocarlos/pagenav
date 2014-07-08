@@ -1,7 +1,7 @@
 pagenav
 =======
 
-navigation toolbar for a [pageturner](https://github.com/binocarlos/pageturner) book
+navigation toolbar for a book
 
 ## installation
 
@@ -11,36 +11,60 @@ $ component install binocarlos/pagenav
 
 ## example
 
-Create a [pageturner](https://github.com/binocarlos/pageturner) book and pass it to pagehammer
+Create a [pageturner](https://github.com/binocarlos/pageturner) book and pass it to pagenav for the navigation
 
 ```js
-var PageTurner = require('pageturner')
 var PageNav = require('pagenav')
-var data = {
-	title:"My Cool Book",
-	pages:[{
-		title:"Intro",
-		html:"<p>This is the first page</p>"
-	},
-	...]
-}
-
-var book = PageTurner(data)
-var nav = PageNav(book)
-
-book.appendTo(document.querySelector('#container'))
+var nav = PageNav()
 nav.appendTo(document.querySelector('#nav'))
 
-nav.on('page', function(){
-	// the navbar was triggered and turned the book page
+var pages = [{
+	title:'Page 1'	
+},{
+	title:'Page 2'
+},{
+	title:'Page 3'
+}]
+
+// pages can be an array or just a number
+nav.setPages(pages)
+
+// change the HTML of a nav element
+nav.on('page', function(elem, index){
+	elem.innerHTML = '0' + index
 })
+
+nav.on('click', function(index){
+	// set the book to page 'index'	
+})
+
+// set the highlighted page to 3
+nav.setPage(3)
 ```
 
 ## api
 
-### `var nav = PageNav(book)`
+### `var nav = PageNav()`
 
-Create a new navbar from the given book and options
+Create a new navbar
+
+### `nav.setPages(pages)`
+
+Assign the number of pages for the navbar - pages can be an array or a number
+
+### `nav.setPage(index)`
+
+Set the currently active page of the navbar
+
+## events
+
+### `nav.on('page', function(elem, index){})`
+
+A page element has been rendered
+
+### `nav.on('click', function(index){})`
+
+A page element has been clicked
 
 ## css
 
