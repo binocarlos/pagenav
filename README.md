@@ -25,7 +25,7 @@ var pages = [{
 }]
 
 // pages can be an array or just a number
-nav.setPages(pages)
+nav.buildPages(pages)
 
 // change the HTML of a nav element
 nav.on('page', function(elem, index){
@@ -46,7 +46,7 @@ nav.setPage(3)
 
 Create a new navbar
 
-### `nav.setPages(pages)`
+### `nav.buildPages(pages)`
 
 Assign the number of pages for the navbar - pages can be an array or a number
 
