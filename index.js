@@ -14,6 +14,8 @@ function PageNav (opts) {
     }
   })
   this._options = opts
+  this._element = document.createElement('div')
+  classes(this._element).add('pagenav-bar')
 }
 
 Emitter(PageNav.prototype)
@@ -22,11 +24,14 @@ PageNav.prototype.buildPages = function (pages) {
   var self = this
 
   this._pages = pages.map(function(data, i){
-    var page = document.createElement('div')
+    var page = document.createElement('span')
     classes(page).add('pagenav-page')
+    page.style.display = 'inline-block'
+    page.style.cursor = 'pointer'
     page.innerHTML = i
     page.addEventListener('click', self.clickPage.bind(self))
     self.emit('page', page)
+    self._element.appendChild(page)
     return page
   })
   this.setPage(0)
@@ -47,11 +52,6 @@ PageNav.prototype.setPage = function (index) {
 }
 
 PageNav.prototype.render = function () {
-  if(this._element){
-    return this._element
-  }
-  this._element = document.createElement('div')
-  classes(this._element).add('pagenav-bar')
   return this._element
 }
 
