@@ -9,9 +9,9 @@ function PageNav (opts) {
   if (!(this instanceof PageNav)) return new PageNav(opts);
   opts = opts || {}
   Object.keys(defaults || {}).forEach(function(key){
-  	if(!opts[key]){
-  		opts[key] = defaults[key]
-  	}
+    if(!opts[key]){
+      opts[key] = defaults[key]
+    }
   })
   this._options = opts
 }
@@ -21,12 +21,13 @@ Emitter(PageNav.prototype)
 PageNav.prototype.buildPages = function (pages) {
   var self = this
 
-  this._pages = pages.map(function(page, i){
+  this._pages = pages.map(function(data, i){
     var page = document.createElement('div')
     classes(page).add('pagenav-page')
     page.innerHTML = i
     page.addEventListener('click', self.clickPage.bind(self))
     self.emit('page', page)
+    return page
   })
   this.setPage(0)
 }
