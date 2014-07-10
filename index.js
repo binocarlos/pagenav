@@ -3,6 +3,8 @@ var classes = require('classes')
 
 module.exports = PageNav;
 
+var defaults = {}
+
 function PageNav (book, opts) {
   if (!(this instanceof PageNav)) return new PageNav(book, opts);
   opts = opts || {}
@@ -26,7 +28,7 @@ PageNav.prototype.buildPages = function (pages) {
   var self = this
 
   this._pages = pages.map(function(page, i){
-    var page =  = document.createElement('div')
+    var page = document.createElement('div')
     classes(page).add('pagenav-page')
     page.innerHTML = i
     page.addEventListener('click', self.clickPage.bind(self))
