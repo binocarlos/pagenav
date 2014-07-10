@@ -5,24 +5,18 @@ module.exports = PageNav;
 
 var defaults = {}
 
-function PageNav (book, opts) {
-  if (!(this instanceof PageNav)) return new PageNav(book, opts);
+function PageNav (opts) {
+  if (!(this instanceof PageNav)) return new PageNav(opts);
   opts = opts || {}
   Object.keys(defaults || {}).forEach(function(key){
   	if(!opts[key]){
   		opts[key] = defaults[key]
   	}
   })
-  this._book = book
   this._options = opts
-  this.setupEvents()
 }
 
 Emitter(PageNav.prototype)
-
-PageNav.prototype.setupEvents = function () {
-  this._book.on('data', this.buildPages.bind(this))
-}
 
 PageNav.prototype.buildPages = function (pages) {
   var self = this
