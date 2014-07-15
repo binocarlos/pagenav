@@ -42,25 +42,25 @@ nav.setPage(3)
 
 ## api
 
-### `var nav = PageNav()`
+#### `var nav = PageNav()`
 
 Create a new navbar
 
-### `nav.buildPages(pages)`
+#### `nav.buildPages(pages)`
 
 Assign the number of pages for the navbar - pages can be an array or a number
 
-### `nav.setPage(index)`
+#### `nav.setPage(index)`
 
 Set the currently active page of the navbar
 
 ## events
 
-### `nav.on('page', function(elem, index){})`
+#### `nav.on('page', function(elem, index){})`
 
 A page element has been rendered
 
-### `nav.on('click', function(index){})`
+#### `nav.on('click', function(index){})`
 
 A page element has been clicked
 
