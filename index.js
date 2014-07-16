@@ -28,7 +28,7 @@ PageNav.prototype.buildPages = function (pages) {
     classes(page).add('pagenav-page')
     page.style.display = 'inline-block'
     page.style.cursor = 'pointer'
-    page.innerHTML = i
+    page.innerHTML = (i+1)
     page.addEventListener('click', function(){
       self.clickPage(i)
     })
