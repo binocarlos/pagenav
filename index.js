@@ -29,9 +29,15 @@ PageNav.prototype.buildPages = function (pages) {
     page.style.display = 'inline-block'
     page.style.cursor = 'pointer'
     page.innerHTML = (i+1)
-    page.addEventListener('click', function(){
+    function clickHandler(){
       self.clickPage(i)
-    })
+    }
+    if (page.addEventListener) {
+      page.addEventListener("click", clickHandler, false);
+    }
+    else {
+      page.attachEvent("onclick", clickHandler);
+    }
     self.emit('page', page)
     self._element.appendChild(page)
     return page
